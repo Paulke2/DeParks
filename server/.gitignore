@@ -1,5 +1,2 @@
-config.env
+.env
 node_modules
-dist
-pachage-lock.json
-pachage.json
