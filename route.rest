@@ -1,0 +1,1 @@
+GET https://cloud.mongodb.com/v2/64551440cdabe97b8b40d271#/metrics/replicaSet/645514ea2a179d1d41bc6745/explorer/DE_Plants/plants/

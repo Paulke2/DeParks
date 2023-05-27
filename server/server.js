@@ -1,5 +1,5 @@
 const express = require("express");
-const { plantSchema, parkSchema } = require("./schemas.js");
+
 //const cors = require("cors");
 const app = express();
 app.use(express.json());
@@ -16,6 +16,3 @@ db = mongoose.connection;
 db.on('error', (error) => console.error(error));
 db.on('open', () => console.log('connected to DB'));
 app.listen(3000,()=> console.log('Server started'));
-
-const Plant = mongoose.model("Plant", plantSchema);
-const Park = mongoose.model("Park", parkSchema);
