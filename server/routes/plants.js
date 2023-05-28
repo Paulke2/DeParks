@@ -1,48 +1,69 @@
 const express = require('express');
 const router = express.Router();
-const plant = require("./plant.js");
-
+const Plant = require("../models/plantModel.js");
+const mongoose = require('mongoose');
 //get all Plants
-router.get('/',async (req,res)=>{
+router.get('/', async(req,res)=>{
     //res.send('HELLOOOOO');
     try {
-        const plants = await plant.find();
-    }catch (err){
+        const plants = await Plant.find().sort();
+        res.status(200).json(plants);
+    }catch (error){
         //status 500 means it is a db error
-        res.status(500).json({message: err.message});
+        res.status(500).json({error: error.message});
     }
 });
 //getting one
-router.get('/:Plantid',(req,res)=>{
-    res.send(req.params.Plantid);
+router.get('/:Plantid',async (req,res)=>{
+        if(!mongoose.Types.ObjectId.isValid(req.params.Plantid)){
+            return res.status(404).json({error: "plant not found"});
+        }
+        const plant = await Plant.findById(req.params.Plantid);
+        if(!plant){
+            return res.status(404).json({error: "plant not found"});
+        }
+     res.status(200).json(plant);
 });
 //creating one
-router.post('/', async (req,res)=>{
-    const new_plant = new plant({
-        name: req.body.name,
-        picture: req.body.picture,
-        description: req.body.description,
-        Plantid: req.body.Plantid,
-        qr: req.body.qr
+router.post('/', async(req,res)=>{
+    const {name,description,Plantid}=req.body;
 
-    })
-    try {
-        const new_plant = await hasSubscribers.save();
-        //201 means successful creation
-        res.status(201).json(new_plant);
-    }catch (err) {
-        res.status(400).json({message: err.message});
+    try{
+        const plant = await Plant.create({name,description,Plantid});
+        res.status(200).json(plant);
+    }
+    catch (error){
+        res.status(400).json({error: error.message});
     }
 
 });
-//deletingone
-router.delete('/Plantid',(req,res)=>{
-
+//deleting one
+router.delete('/:Plantid', (req,res)=>{
+// try{
+// await res.subscriber.remove();
+// res.json({message: "Deleted plant"});
+// }catch(err){
+//     res.status(500).json({message: err.message});
+// }
+res.json({messg:'delete a plant'});
 });
-//updating one
-router.patch('/',(req,res)=>{
 
-});
+//update
+router.patch('/:Plantid',(req,res)=>{
+    res.json({message: "updated plant"});
+})
+//middleware function
+async function getPlant(req, res, next){
+    try {
+            plant=await plan.find(req.params.Plantid);
+            if(plant==null){
+                return res.status(404).json({message: "cannot find plant"});
+            }
+    }catch (err){
 
+    }
+    res.plant=plant;
+    next();
+}
 
 module.exports=router;
