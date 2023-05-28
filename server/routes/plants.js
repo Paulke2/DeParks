@@ -15,12 +15,13 @@ router.get('/', async(req,res)=>{
 });
 //getting one
 router.get('/:Plantid',async (req,res)=>{
-        if(!mongoose.Types.ObjectId.isValid(req.params.Plantid)){
+    const {Plantid}=req.params;
+        if(!mongoose.Types.ObjectId.isValid(Plantid)){
             return res.status(404).json({error: "plant not found"});
         }
-        const plant = await Plant.findById(req.params.Plantid);
+        const plant = await Plant.findById(Plantid);
         if(!plant){
-            return res.status(404).json({error: "plant not found"});
+            return res.status(404).json({error: "plant not ffound"});
         }
      res.status(200).json(plant);
 });
@@ -38,24 +39,37 @@ router.post('/', async(req,res)=>{
 
 });
 //deleting one
-router.delete('/:Plantid', (req,res)=>{
-// try{
-// await res.subscriber.remove();
-// res.json({message: "Deleted plant"});
-// }catch(err){
-//     res.status(500).json({message: err.message});
-// }
-res.json({messg:'delete a plant'});
+router.delete('/:Plantid', async(req,res)=>{
+    const {Plantid}=req.params;
+    if(!mongoose.Types.ObjectId.isValid(Plantid)){
+        return res.status(404).json({error: "plant not found"});
+    }
+    const plant = await Plant.findOneAndDelete({_id: Plantid});
+    if(!plant){
+        return res.status(404).json({error: "plant not found"});
+    }
+ res.status(200).json(plant);
+
 });
 
 //update
-router.patch('/:Plantid',(req,res)=>{
-    res.json({message: "updated plant"});
-})
+router.patch('/:Plantid',async(req,res)=>{
+    const {Plantid}=req.params;
+    if(!mongoose.Types.ObjectId.isValid(Plantid)){
+        return res.status(404).json({error: "plant not found"});
+    }
+    const plant = await Plant.findOneAndUpdate({_id: Plantid},{...req.body});
+    if(!plant){
+        return res.status(400).json({error: "plant not found"});
+    }
+    return res.status(200).json(plant);
+});
+
+
 //middleware function
 async function getPlant(req, res, next){
     try {
-            plant=await plan.find(req.params.Plantid);
+            plant=await plan.find(req.params);
             if(plant==null){
                 return res.status(404).json({message: "cannot find plant"});
             }
