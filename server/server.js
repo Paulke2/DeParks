@@ -33,4 +33,4 @@ app.use((req, res, next) => {
 });
 
 //plant routes
-app.use("/api/plants", plant_routes);
+app.use("/plants", plant_routes);
