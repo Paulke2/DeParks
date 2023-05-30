@@ -27,10 +27,10 @@ router.get('/:Plantid',async (req,res)=>{
 });
 //creating one
 router.post('/', async(req,res)=>{
-    const {name,description,Plantid}=req.body;
+    const {name,img,description,Plantid}=req.body;
 
     try{
-        const plant = await Plant.create({name,description,Plantid});
+        const plant = await Plant.create({name,img,description,Plantid});
         res.status(200).json(plant);
     }
     catch (error){

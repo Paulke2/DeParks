@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const plantSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    picture: String,
+    img: String,
     description: String,
     Plantid: { type: Number, required: true },
     qr: String,
