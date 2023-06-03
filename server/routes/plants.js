@@ -4,7 +4,6 @@ const Plant = require("../models/plantModel.js");
 const mongoose = require('mongoose');
 //get all Plants
 router.get('/', async(req,res)=>{
-    //res.send('HELLOOOOO');
     try {
         const plants = await Plant.find().sort();
         res.status(200).json(plants);
@@ -21,7 +20,7 @@ router.get('/:Plantid',async (req,res)=>{
         }
         const plant = await Plant.findById(Plantid);
         if(!plant){
-            return res.status(404).json({error: "plant not ffound"});
+            return res.status(404).json({error: "plant not found"});
         }
      res.status(200).json(plant);
 });

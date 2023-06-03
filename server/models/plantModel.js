@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Plant = require("./plantModel.js");
 const plantSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },

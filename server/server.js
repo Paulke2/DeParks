@@ -2,6 +2,7 @@ const express = require("express");
 require("dotenv").config({ path: "./.env" });
 const app = express();
 const plant_routes = require("./routes/plants.js");
+const park_routes = require("./routes/parks.js");
 const mongoose = require("mongoose");
 app.use(express.urlencoded({ extended: true }));
 
@@ -33,4 +34,6 @@ app.use((req, res, next) => {
 });
 
 //plant routes
+app.use("/parks", park_routes);
 app.use("/plants", plant_routes);
+
