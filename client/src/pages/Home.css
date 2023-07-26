@@ -1,0 +1,14 @@
+.park-card {
+
+    border-color: green;
+    border-width: 20px;
+    
+}
+
+.parkGrid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(299px, 299px));
+    grid-gap: 20px;
+    padding: 20px;
+	justify-content: center;
+}

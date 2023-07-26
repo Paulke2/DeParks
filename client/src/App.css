@@ -1,0 +1,9 @@
+.parkButton{
+    color:white;
+    font-size: 25px;
+    position: sticky;
+    top: 0;
+    padding: 50px;
+    z-index: 1;
+    cursor: pointer;
+}
